@@ -5,7 +5,7 @@
 | Description | Potential Points |
 | --------------- | --------------- |
 | Data architecture | 10 |
-| Algorithms lisibility | 15 |
+| Algorithms readability | 15 |
 | Milestone 1 - 5 | 50 |
 | Milestone 6 | 10 |
 | Milestone 7 | 15 |
@@ -14,4 +14,7 @@
 | *Bonus NCurses* | *15* |
 | *Bonus Pathfinding* | *15* |
 | *Bonus Nice Code* | *10* |
-| *Bonus code improvement* | 15 |
+| *Bonus Code improvement* | *15* |
+
+**You'll lose -10 points for each function with code you can't explain, copy/pasted or AI.**
+*I won't ask anything crazy for NCurses.*
