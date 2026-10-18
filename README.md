@@ -14,3 +14,4 @@
 | *Bonus NCurses* | *15* |
 | *Bonus Pathfinding* | *15* |
 | *Bonus Nice Code* | *10* |
+| *Bonus code improvement* | 15 |
