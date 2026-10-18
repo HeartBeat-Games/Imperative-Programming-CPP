@@ -16,5 +16,7 @@
 | *Bonus Nice Code* | *10* |
 | *Bonus Code improvement* | *15* |
 
+-----
 **You'll lose -10 points for each function with code you can't explain, copy/pasted or AI.**
+
 *I won't ask anything crazy for NCurses.*
