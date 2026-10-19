@@ -1,6 +1,3 @@
-// ConsoleAdventureGame.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 
 #include "Map.h"
@@ -9,6 +6,11 @@
 #include "FSM.h"
 
 
+enum E_GameStatus {
+    Running = 0,
+    Exit_Level,
+    GameOver
+};
 
 char* createWindow(Map& map)
 {
@@ -122,7 +124,7 @@ int gameLoop(
 {
     {
         Character& player = characters.data[0];
-        int fsmState = 0;
+        int fsmState = E_State::Move;
         fsm.onEnter[fsmState](player, spell);
 
         do {
@@ -133,30 +135,35 @@ int gameLoop(
             {
                 fsm.onExit[fsmState](player, spell);
                 fsmState = newState;
-                if (fsmState != 2)
+                if (fsmState != E_State::End_Turn)
                     fsm.onEnter[fsmState](player, spell);
                 displayMap(window, currentMap, characters, spell);
             }
-        } while (fsmState != 2);
+        } while (fsmState != E_State::End_Turn);
 
         int index = get1DCell(player.pos, (currentMap).width);
         if ((currentMap).cells[index] == E_CellType::Exit)
-            return 1;
+            return E_GameStatus::Exit_Level;
     }
 
     // Move enemies
     for (int i = 1; i < characters.size; ++i)
     {
+        if (!characters.data[i].isAlive)
+            continue;
+
         Vector2 dir;
         bool moved = false;
+        int maxTry = 10; // Could be blocked by the map and other ennemies
         do {
             dir = getRandomDirection();
             moved = characterMove(characters.data[i], dir, currentMap, characters);
-        } while (!moved);
+            maxTry--;
+        } while (!moved && maxTry > 0);
     }
 
     if (!player.isAlive)
-        return 2;
+        return E_GameStatus::GameOver;
 
     displayMap(window, currentMap, characters, spell);
 
@@ -180,13 +187,7 @@ int main()
     };
     int mapIndex = 0;
 
-    Spell spell{
-        false,
-        Vector2 {0, 0},
-        Vector2 {0, 0},
-        1,
-        1
-    };
+    Spell spell;
     char* window;
     Map* currentMap;
     Characters* characters;
@@ -198,7 +199,7 @@ int main()
     while (true)
     {
         int status = gameLoop(fsm, window, *currentMap, *player, *characters, spell);
-        if (status == 1) // ChangeLevel
+        if (status == E_GameStatus::Exit_Level)
         {
             releaseLevelData(window, characters);
             mapIndex++;
@@ -212,7 +213,7 @@ int main()
             initializeLevel(mapIndex, &window, &currentMap, allMaps, &player, &characters);
             displayMap(window, *currentMap, *characters, spell);
         }
-        else if (status == 2) // Game Over
+        else if (status == E_GameStatus::GameOver)
         {
             system("cls");
             std::cout << "==== YOU'RE DEAD ====" << std::endl;

@@ -5,10 +5,17 @@
 #include "Characters.h"
 #include "Spell.h"
 
+enum E_State {
+	Move = 0,
+	Fire_Spell,
+	End_Turn,
+	Count_State
+};
+
 struct FSM {
-	void (*onEnter[2])(Character&, Spell&);
-	void (*onExit[2])(Character&, Spell&);
-	int (*onUpdate[2])(Map&, Character&, Characters&, Spell&);
+	void (*onEnter[Count_State - 1])(Character&, Spell&);
+	void (*onExit[Count_State - 1])(Character&, Spell&);
+	int (*onUpdate[Count_State - 1])(Map&, Character&, Characters&, Spell&);
 };
 
 void movement_onEnter(Character& player, Spell& spell);

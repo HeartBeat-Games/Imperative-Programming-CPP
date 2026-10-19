@@ -4,13 +4,13 @@
 #include "Characters.h"
 
 struct Spell {
-	bool	isVisible;
+	bool	isVisible = false;
 	
-	Vector2 origin;
-	Vector2 cursor;
+	Vector2 origin = Vector2{};
+	Vector2 cursor = Vector2{};;
 
-	int		range;
-	int		damage;
+	int		range = 0;
+	int		damage = 0;
 };
 
 void initializeSpell(Spell& spell, Character& player);
