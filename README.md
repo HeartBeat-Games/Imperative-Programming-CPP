@@ -20,3 +20,8 @@
 **You'll lose -10 points for each function with code you can't explain, copy/pasted or AI.**
 
 *I won't ask anything crazy for NCurses.*
+
+----
+## If you get bored before I come back
+
+[One big video and a few small ones](https://www.youtube.com/watch?v=Wu2g-N5Z78Y&list=PLJ9qb81Ot5yI&pp=sAgC)
